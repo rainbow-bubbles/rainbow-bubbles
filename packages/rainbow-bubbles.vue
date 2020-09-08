@@ -17,12 +17,16 @@ export default {
   },
   computed: {
     createCanvas() {
-      return this.config ? this.config.new || true : true;
+      if (this.config && this.config.hasOwnProperty("new")) {
+        return this.config.new;
+      }
+      return true;
     },
     elId() {
-      return this.config
-        ? this.config.el || "rainbow-bubbles"
-        : "rainbow-bubbles";
+      if (this.config && this.config.hasOwnProperty("el")) {
+        return this.config.el;
+      }
+      return "rainbow-bubbles";
     },
   },
   watch: {
@@ -93,8 +97,10 @@ export default {
       if (create) {
         canvas.width = width = xW;
         canvas.height = height = xH;
+      } else {
+        width = canvas.width;
+        height = canvas.height;
       }
-
       // 设置背景
       function setColor(background) {
         // 未找到指定元素
