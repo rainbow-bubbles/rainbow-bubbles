@@ -1,6 +1,6 @@
-# rainbow-waves
+# rainbow-bubbles
 
-<!-- [rainbow-waves](https://rainbow-waves.github.io/) is a wave component on Vue by [z7xisoo](https://z7xisoo.com/) in [github](https://github.com/rainbow-waves/rainbow-waves). -->
+[rainbow-bubbles](https://rainbow-bubbles.github.io/) is a wave component on Vue by [z7xisoo](https://z7xisoo.com/) in [github](https://github.com/rainbow-bubbles).
 
 ## Install
 
@@ -34,40 +34,40 @@ import RainbowBubbles from 'rainbow-bubbles'
 | blow|Boolean|true|automatic explosion|
 | background|Object|{...}|canvas background|
 
-- [x] config - background
+- [x] background
 
 | key|type|default|use|range|
 | -------- |-----:|:----:|:----:|:----:|
-| type|String|"gradient"|background-type| "color","image","gradient" |
-| value|any|["red", "orange", "green", "blue"]|background-value|-|
+| type|String|""|type|"color","image","gradient"|
+| color|String Array|""|color|-|
+| position|Array|""|image-gradient-positon|[0,0,width,0]|
+| src|String|""|image-url| "color","image","gradient" |
+| repetition|String|""|image-repetition| "color","image","gradient" |
 
 
 ```js
-import image from "rainbow-waves.png";
+import image from "rainbow-bubbles.png";
 
 background = {
   type: "gradient",
-  value: ["red", "orange", "green", "blue"],
+  color: ["red", "orange", "green", "blue"],
+  position:[0,0,1920,1080]
 };
 
 background = {
   type: "image",
-  value: {
-    src:image,
-    repetition:"repeat", // "repeat","repeat-x","repeat-y","no-repeat"
-  },
+  src:image,
+  repetition:"repeat", // "repeat","repeat-x","repeat-y","no-repeat"
 };
 
-// 多色气泡
 background = {
   type: "color",
-  value: ["red", "orange", "green", "blue"],
+  color: ["red", "orange", "green", "blue"],
 };
 
-// 普通背景
 background = {
   type: "color",
-  value: "green",
+  color: "green",
 };
 
 ```
@@ -75,7 +75,7 @@ background = {
 - [x] bubbles
 
 | key|type|default|use|
-| -------- |-----:|:----:|:----:|:----:|
+| -------- |-----:|:----:|:----:|
 | max|Object|{...}|big bubbles config|
 | min|Object|{...}|explosion bubbles config|
 
@@ -106,12 +106,7 @@ background = {
 
 MIT
 
-
-## z7xisoo
-
-[rainbow-waves](https://github.com/rainbow-waves)
-
 ----
                 
-![](https://raw.githubusercontent.com/rainbow-waves/rainbow-waves.github.io/master/wave.jpg)
+![](https://raw.githubusercontent.com/rainbow-bubbles/rainbow-bubbles.github.io/master/rainbow-bubbles.jpg)
 
