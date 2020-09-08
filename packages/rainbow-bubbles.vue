@@ -257,7 +257,14 @@ export default {
       function toooo() {
         // 清空画布
         if (clear) ctx.clearRect(0, 0, width, height);
-        if (create) setColor(background);
+        if (create){
+          setColor(background);
+        }else{
+          setColor({
+            type:"color",
+            color:"rgba(0,0,0,0)"
+          });
+        }
         ctx.fillRect(0, 0, width, height);
 
         if (Math.random() * 10 > 10 - maxRate) {
