@@ -6,11 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "/rainbow-bubbles"
+  },
+  "homepage":"rainbow-bubbles.github.io",
   "keywords": [
     "z7xisoo",
     "rainbow-bubbles",
-    "vue",
     "bubbles",
+    "vue",
     "diy"
   ],
   "author": "z7xisoo",
