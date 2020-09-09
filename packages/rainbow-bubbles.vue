@@ -1,7 +1,5 @@
 <template>
-  <div v-if="createCanvas" class="rainbow-bubbles">
-    <canvas :id="elId" />
-  </div>
+  <canvas v-if="createCanvas" :id="elId" />
 </template>
 
 <script>
@@ -32,22 +30,28 @@ export default {
   watch: {
     config: {
       handler() {
-        this.drow();
+        this.$nextTick(() => {
+          this.draw();
+        });
       },
       deep: true,
     },
     bubbles: {
       handler() {
-        this.drow();
+        this.$nextTick(() => {
+          this.draw();
+        });
       },
       deep: true,
     },
   },
-  mounted() {
-    this.drow();
+  created() {
+    this.$nextTick(() => {
+      this.draw();
+    });
   },
   methods: {
-    drow() {
+    draw() {
       // 初始化
       let canvas = null;
       let ctx = null;
@@ -257,12 +261,12 @@ export default {
       function toooo() {
         // 清空画布
         if (clear) ctx.clearRect(0, 0, width, height);
-        if (create){
+        if (create) {
           setColor(background);
-        }else{
+        } else {
           setColor({
-            type:"color",
-            color:"rgba(0,0,0,0)"
+            type: "color",
+            color: "rgba(0,0,0,0)",
           });
         }
         ctx.fillRect(0, 0, width, height);
