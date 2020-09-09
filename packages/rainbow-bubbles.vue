@@ -45,10 +45,14 @@ export default {
       deep: true,
     },
   },
-  created() {
-    this.$nextTick(() => {
+  mounted() {
+    if (this.createCanvas) {
       this.draw();
-    });
+    } else {
+      setTimeout(() => {
+        this.draw();
+      }, 10);
+    }
   },
   methods: {
     draw() {
@@ -78,18 +82,17 @@ export default {
         new: true,
         clear: true,
         el: "rainbow-bubbles",
-        width: 1920,
-        height: 1080,
+        width: window.innerWidth,
+        height: window.innerHeight,
         move: true,
         blow: true,
         background: {
           type: "gradient",
           color: ["red", "orange", "green", "blue"],
-          position: [0, 0, 1920, 1080],
+          position: [0, 0, window.innerWidth, window.innerHeight],
         },
         ...this.config,
       };
-
       // 获取画布
       canvas = document.getElementById(el);
       // 未找到指定元素
@@ -275,7 +278,7 @@ export default {
           for (let index = 0; index < maxNumber; index++) {
             const radius = getRadius(maxRadius);
             const x = Math.max(radius, Math.random() * width - radius);
-            const y = canvas.height + 100;
+            const y = height + 100;
             let color = bubbles.push(
               new Bubbles(x, y, radius, {
                 ...maxBackground,
@@ -323,7 +326,7 @@ export default {
             }
 
             // 到达一定高度自动爆破碎效果
-            if (blow && y < canvas.height * maxBlowHeight) {
+            if (blow && y < height * maxBlowHeight) {
               bubbles[i].radius = 0;
               // 是否出线小气泡
               if (minShow) miniboo(x, y);
