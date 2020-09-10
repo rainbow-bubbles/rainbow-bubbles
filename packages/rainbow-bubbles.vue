@@ -67,7 +67,7 @@ export default {
       let minibubbles = [];
       let width = 0;
       let height = 0;
-
+      let toooo = null;
       // 配置项
       let {
         new: create,
@@ -108,31 +108,6 @@ export default {
         width = canvas.width;
         height = canvas.height;
       }
-      // 设置背景
-      function setColor(background) {
-        // 未找到指定元素
-        if (!ctx) throw new Error(`未找到‘canvas’, getContext 错误`);
-        if (!ctx) return;
-        switch (background.type) {
-          case "color":
-            ctx.fillStyle = background.color;
-            break;
-          case "gradient":
-            const [o1, o2, o3, o4] = background.position;
-            const gradient = ctx.createLinearGradient(o1, o2, o3, o4);
-            const l = background.color.length;
-            background.color.forEach((x, k) => {
-              gradient.addColorStop(k / l, x);
-            });
-            ctx.fillStyle = gradient;
-            break;
-          case "image":
-            let img = new Image();
-            img.src = background.src;
-            ctx.fillStyle = ctx.createPattern(img, background.repetition);
-            break;
-        }
-      }
       // 监听鼠标事件
       function moveFN(e) {
         mouse.x = e.offsetX;
@@ -155,17 +130,31 @@ export default {
       Bubbles.prototype.draw = function () {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        setColor({
-          ...this.background,
-          position: [
-            this.x - this.radius,
-            this.y - this.radius,
-            this.x + this.radius,
-            this.y + this.radius,
-          ],
-        });
-        ctx.fill();
+        switch (this.background.type) {
+          case "color":
+            ctx.fillStyle = this.background.color;
+            break;
+          case "gradient":
+            const gradient = ctx.createLinearGradient(
+              this.x - this.radius,
+              this.y - this.radius,
+              this.x + this.radius,
+              this.y + this.radius
+            );
+            const l = this.background.color.length;
+            this.background.color.forEach((x, k) => {
+              gradient.addColorStop(k / l, x);
+            });
+            ctx.fillStyle = gradient;
+            break;
+          case "image":
+            let img = new Image();
+            img.src = this.background.src;
+            ctx.fillStyle = ctx.createPattern(img, this.background.repetition);
+            break;
+        }
         ctx.closePath();
+        ctx.fill();
       };
 
       Bubbles.prototype.update = function () {
@@ -186,21 +175,33 @@ export default {
       }
 
       miniBubbles.prototype.draw = function () {
-        ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        setColor({
-          ...this.background,
-          position: [
-            this.x - this.radius,
-            this.y - this.radius,
-            this.x + this.radius,
-            this.y + this.radius,
-          ],
-        });
-        ctx.fill();
+        switch (this.background.type) {
+          case "color":
+            ctx.fillStyle = this.background.color;
+            break;
+          case "gradient":
+            const gradient = ctx.createLinearGradient(
+              this.x - this.radius,
+              this.y - this.radius,
+              this.x + this.radius,
+              this.y + this.radius
+            );
+            const l = this.background.color.length;
+            this.background.color.forEach((x, k) => {
+              gradient.addColorStop(k / l, x);
+            });
+            ctx.fillStyle = gradient;
+            break;
+          case "image":
+            let img = new Image();
+            img.src = this.background.src;
+            ctx.fillStyle = ctx.createPattern(img, this.background.repetition);
+            break;
+        }
         ctx.closePath();
-        ctx.restore();
+        ctx.fill();
       };
       miniBubbles.prototype.update = function () {
         this.x += this.gravityX;
@@ -260,17 +261,31 @@ export default {
           minibubbles.push(new miniBubbles(x, y, minir, minBackground));
         }
       }
-      toooo();
-      function toooo() {
+      toooo = function () {
         // 清空画布
         if (clear) ctx.clearRect(0, 0, width, height);
         if (create) {
-          setColor(background);
+          switch (background.type) {
+            case "color":
+              ctx.fillStyle = background.color;
+              break;
+            case "gradient":
+              const [o1, o2, o3, o4] = background.position;
+              const gradient = ctx.createLinearGradient(o1, o2, o3, o4);
+              const l = background.color.length;
+              background.color.forEach((x, k) => {
+                gradient.addColorStop(k / l, x);
+              });
+              ctx.fillStyle = gradient;
+              break;
+            case "image":
+              let img = new Image();
+              img.src = background.src;
+              ctx.fillStyle = ctx.createPattern(img, background.repetition);
+              break;
+          }
         } else {
-          setColor({
-            type: "color",
-            color: "rgba(0,0,0,0)",
-          });
+          ctx.fillStyle = "rgba(0,0,0,0)";
         }
         ctx.fillRect(0, 0, width, height);
 
@@ -345,6 +360,7 @@ export default {
         }
         requestAnimationFrame(toooo);
       }
+      toooo();
     },
   },
 };
