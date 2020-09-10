@@ -42,7 +42,7 @@ import RainbowBubbles from 'rainbow-bubbles'
 | color|String Array|""|color|-|
 | position|Array|""|image-gradient-positon|[0,0,width,0]|
 | src|String|""|image-url| "color","image","gradient" |
-| repetition|String|""|image-repetition| "color","image","gradient" |
+| repetition|String|""|image-repetition| "repeat","repeat-x","repeat-y","no-repeat" |
 
 
 ```js
